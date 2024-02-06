@@ -24,3 +24,8 @@ Implement form:
 #Footer
 - copyrigth
 - same buttons as in header
+
+#Feedback page
+One feedback has in body feedback text and on the left side name and on the rigth date.
+Also it should has a edit mode.
+In edit mode it has to button cancel and apply.
