@@ -25,12 +25,14 @@ class FormField
         $this->error = $error;
     }
 
-    public function render()
+    public function render($isTextArea = false)
     {
         echo "<div class=\"{$this->wrapperClassName}\">";
         echo "<label for=\"{$this->name}\" class=\"form-label\">{$this->label}</label>";
-        echo "<input type=\"{$this->type}\" class=\"form-control " .
-            (!$this->error ? '' : 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">";
+        echo !$isTextArea ? "<input type=\"{$this->type}\" class=\"form-control" .
+            (!$this->error ? '' : 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" :
+            "<textarea  type=\"{$this->type}\" class=\"form-control" .
+            (!$this->error ? '' : 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\"></textarea>";
         echo '</div>';
     }
 }
