@@ -1,0 +1,26 @@
+Implement for Desktop view.
+
+1. Create header component.
+2. Create body component.
+3. Create footer component (optional).
+
+#Header
+Logo on the left side.
+Buttons on the right side (home, feedback)
+
+#Body
+Implement form:
+- Title
+- Sub title
+- Form field name
+    - only letters, required;
+- Form field email
+    - email validation, required
+- Text area Feedback
+    - required
+- Submit button
+    - create a new entry with feedback in the DB
+
+#Footer
+- copyrigth
+- same buttons as in header
