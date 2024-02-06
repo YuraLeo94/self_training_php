@@ -1,5 +1,6 @@
 <?php
-require_once ('View/headerView.php');
+require_once('View/headerView.php');
+require_once('View/formField.php');
 
 $headerView = new HeaderView();
 
