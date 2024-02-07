@@ -7,7 +7,7 @@ $headerView = new HeaderView();
 
 $buttons = [
     ['name' => 'Home', 'href' => 'index.php'],
-    ['name' => 'Feedback', 'href' => 'feedback.php'],
+    ['name' => 'Feedback', 'href' => 'src/View/feedbackPage.php'],
 ];
 
 $fields = [
