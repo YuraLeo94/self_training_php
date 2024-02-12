@@ -26,12 +26,9 @@ class FeedbackPage
 {
     public function render($feedbacks)
     {
-        echo "<h1>Feddbacks</h1>";
+        echo "<h1>Feedbacks</h1>";
         foreach ($feedbacks as $feedback) {
             (new FeedbackItem())->render($feedback);
         }
     }
 }
-// tmp solution
-// Fix it in routing implementation
-(new FeedbackPage())->render($feedbacks);
