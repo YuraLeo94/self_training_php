@@ -2,12 +2,16 @@
 require_once('View/headerView.php');
 require_once('View/formField.php');
 require_once('View/feedbackForm.php');
+require_once('View/feedbackPage.php');
+require_once('Control/routerController.php');
+require_once('utils/const/index.php');
 
-$headerView = new HeaderView();
+include __DIR__ . '/../config/env.php';
+$baseUrl = getenv('BASE_URL');
 
 $buttons = [
-    ['name' => 'Home', 'href' => 'index.php'],
-    ['name' => 'Feedback', 'href' => 'feedback.php'],
+    ['name' => 'Home', 'href' => RoutingPaths::HOME],
+    ['name' => 'Feedback', 'href' => RoutingPaths::FEEDBACK]
 ];
 
 $fields = [
@@ -37,6 +41,6 @@ $fields = [
     ]
 ];
 
-$headerView->renderHeader("Simple Feedback form", $buttons);
-(new FeedbackForm())->render($fields);
+(new HeaderView())->renderHeader("Simple Feedback form", $buttons);
+(new RouterController())->handleRequest($baseUrl);
 ?>
