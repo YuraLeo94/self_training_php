@@ -55,8 +55,11 @@ class RouterController
 
         $request = $_SERVER['REQUEST_URI'];
         $requestURL = explode($baseUrl, $request);
-        $requestedPath = $requestURL[1];
+        $requestedPath = '';
         $prefix = '/';
+
+        if (count($requestURL) > 1) $requestedPath = $requestURL[1];
+
         switch ($requestedPath) {
             case '':
             case '/':
