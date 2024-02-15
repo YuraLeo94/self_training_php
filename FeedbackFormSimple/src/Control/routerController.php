@@ -3,7 +3,7 @@
 
 class RouterController
 {
-    public function handleRequest($baseUrl)
+    public function handleRequest($baseUrl, $feedbackPageController, $feedbackModel)
     {
         $feedbacks = [
             [
@@ -54,6 +54,7 @@ class RouterController
         ];
 
         $request = $_SERVER['REQUEST_URI'];
+        echo '$request!! -> ' . $request;
         $requestURL = explode($baseUrl, $request);
         $requestedPath = '';
         $prefix = '/';
@@ -72,7 +73,9 @@ class RouterController
                 break;
 
             case $prefix . RoutingPaths::FEEDBACK:
-                (new FeedbackPage())->render($feedbacks);
+                $feedbackPageController->updateView();
+                // (new FeedbackPageController(new feedbackPageModel, new FeedbackPage(), $feedbackModel))->updateView();
+                // (new FeedbackPage())->render($feedbacks);
                 break;
 
 
