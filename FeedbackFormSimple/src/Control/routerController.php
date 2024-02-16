@@ -3,28 +3,8 @@
 
 class RouterController
 {
-    public function handleRequest($baseUrl)
+    public function handleRequest($baseUrl, $feedbackPageController, $feedbackModel)
     {
-        $feedbacks = [
-            [
-                'name' => 'Jhon Doe',
-                'email' => 'asd@asd.test',
-                'body' => 'hello world',
-                'date' => '12.12.12'
-            ],
-            [
-                'name' => 'Mike Doe',
-                'email' => 'asd@asd.test',
-                'body' => 'hello world',
-                'date' => '12.12.12'
-            ],
-            [
-                'name' => 'Jane Doe',
-                'email' => 'asd@asd.test',
-                'body' => 'hello world',
-                'date' => '12.12.12'
-            ]
-        ];
 
         $fields = [
             [
@@ -53,29 +33,41 @@ class RouterController
             ]
         ];
 
-        $request = $_SERVER['REQUEST_URI'];
-        $requestURL = explode($baseUrl, $request);
-        $requestedPath = $requestURL[1];
+        $url = $_SERVER['REQUEST_URI'];
+        $path =  parse_url($url)['path'];
+        $requestURL = explode($baseUrl, $path);
+        $requestedPath = '';
         $prefix = '/';
+
+        if (count($requestURL) > 1) $requestedPath = $requestURL[1];
+
         switch ($requestedPath) {
             case '':
             case '/':
             case $prefix . RoutingPaths::HOME:
                 if ($requestedPath !== '/') {
-                    header('Location: ' . $baseUrl . '/');
+                    header('Location: ' . explode($requestedPath, $path)[0] . '/');
                     exit();
                 }
                 (new FeedbackForm())->render($fields);
+                $this->cleanSession();
                 break;
 
             case $prefix . RoutingPaths::FEEDBACK:
-                (new FeedbackPage())->render($feedbacks);
+                $feedbackPageController->updateView();
                 break;
 
 
             default:
+                $this->cleanSession();
                 http_response_code(404);
                 echo 'Error 404';
         }
+    }
+
+
+    public function cleanSession()
+    {
+        session_unset();
     }
 }

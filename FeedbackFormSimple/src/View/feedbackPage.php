@@ -1,5 +1,5 @@
 <?php
-require_once('feedbackItem.php');
+require_once('feedbackItemView.php');
 
 $feedbacks = [
     [
@@ -24,11 +24,9 @@ $feedbacks = [
 
 class FeedbackPage
 {
-    public function render($feedbacks)
+    public function render($feedbacks, $editModeFeedbackIndex)
     {
         echo "<h1>Feedbacks</h1>";
-        foreach ($feedbacks as $feedback) {
-            (new FeedbackItem())->render($feedback);
-        }
+        (new FeedbackItemView())->render($feedbacks, $editModeFeedbackIndex);
     }
 }
