@@ -24,9 +24,9 @@ $feedbacks = [
 
 class FeedbackPage
 {
-    public function render($feedbacks, $setEditModeFeedbackIndex, $getEditModeFeedbackIndex)
+    public function render($feedbacks, $editModeFeedbackIndex)
     {
         echo "<h1>Feedbacks</h1>";
-        (new FeedbackItemView())->render($feedbacks, $getEditModeFeedbackIndex(), $setEditModeFeedbackIndex);
+        (new FeedbackItemView())->render($feedbacks, $editModeFeedbackIndex);
     }
 }
