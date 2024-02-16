@@ -11,12 +11,12 @@ class FeedbackItemView
                     echo '<div class="card-body text-body">';
                         echo '<div class="my-2 d-flex justify-content-between text-dark mt-2">';
                             echo '<div>' . 'By ' . $feedback['name'] . '</div>';
-                            echo '<div>' . '<span class="fw-bold">Date:</span> ' . $feedback['date'] . '</div>';
+                            echo '<div>' . '<span class="fw-bold">Date:</span> ' . date_format(date_create($feedback['date']), 'g:ia \o\n l jS F Y') . '</div>';
                         echo '</div>';
                          
                         if ($index !== $editModeFeedbackIndex ) {
                             echo $feedback['body'];
-                            $this->renderBasicButtonsPanel($index, $editModeFeedbackIndex !== null);
+                            $this->renderBasicButtonsPanel($index, $editModeFeedbackIndex !== null, $feedback['id']);
                         }
                         else {
                             (
@@ -29,7 +29,7 @@ class FeedbackItemView
                                     $feedback['body']
                                 )
                             )->render(true);
-                            $this->renderEditModeButtons();
+                            $this->renderEditModeButtons($feedback['id']);
                         }
                     echo '</div>';
                 echo '</div>';
@@ -37,17 +37,18 @@ class FeedbackItemView
         }
     }
 
-    public function renderBasicButtonsPanel($index, $isEditModeActive) {
+    public function renderBasicButtonsPanel($index, $isEditModeActive, $id) {
         echo '<div class="mt-3 d-flex flex-wrap justify-content-end align-items-center gap-2">';
-        echo "<a class='btn btn-outline-secondary' href='?action=delete&index=$index'>Delete</a>";
-        echo " <a class='btn btn-outline-secondary".($isEditModeActive ? ' disabled' : '')."' href='?action=edit&index=$index'>Edit</a>";
+        echo "<a class='btn btn-outline-secondary' href='?action=delete&id=$id'>Delete</a>";
+        echo "<a class='btn btn-outline-secondary".($isEditModeActive ? ' disabled' : '')."' href='?action=edit&index=$index'>Edit</a>";
         echo '</div>';
     }    
 
-    public function renderEditModeButtons() {
+    public function renderEditModeButtons($id) {
         echo '<div class="mt-3 d-flex flex-wrap justify-content-end align-items-center gap-2">';
             echo "<a class='btn btn-outline-secondary' href='?action=cancel'>Cancel</a>";
-            echo '<input type="hidden" name="action" value="apply">';
+            echo "<input type='hidden' name='action' value='apply'>";
+            echo "<input type='hidden' name='apply_id' value='$id'>";
             echo "<button class='btn btn-primary' type='submit'> Apply </button>";
         echo '</div>';
     }
