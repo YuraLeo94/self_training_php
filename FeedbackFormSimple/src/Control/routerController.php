@@ -6,33 +6,6 @@ class RouterController
     public function handleRequest($baseUrl, $feedbackPageController, $feedbackModel)
     {
 
-        $fields = [
-            [
-                'wrapperClassName' => 'mb-3',
-                'label' => 'Name',
-                'name' => 'name',
-                'type' => 'text',
-                'placeholder' => 'Enter your name',
-                'value' => ''
-            ],
-            [
-                'wrapperClassName' => 'mb-3',
-                'label' => 'Email',
-                'name' => 'email',
-                'type' => 'email',
-                'placeholder' => 'Enter your email',
-                'value' => '',
-            ],
-            [
-                'wrapperClassName' => 'mb-3',
-                'label' => 'Feedback',
-                'name' => 'feedback',
-                'type' => '',
-                'placeholder' => 'Enter your feedback',
-                'value' => '',
-            ]
-        ];
-
         $url = $_SERVER['REQUEST_URI'];
         $path =  parse_url($url)['path'];
         $requestURL = explode($baseUrl, $path);
@@ -49,7 +22,7 @@ class RouterController
                     header('Location: ' . explode($requestedPath, $path)[0] . '/');
                     exit();
                 }
-                (new FeedbackForm())->render($fields);
+                $feedbackPageController->showFeedbackForm();
                 $this->cleanSession();
                 break;
 

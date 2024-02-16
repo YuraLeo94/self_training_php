@@ -4,7 +4,9 @@ class HandleActions
 {
     public function handleActions($feedbackPageController)
     {
-        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS );
+        $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id = filter_input(INPUT_POST, 'apply_id', FILTER_SANITIZE_SPECIAL_CHARS);
+
         if (!$action && isset($_GET['action'])) {
             $action = $_GET['action'];
         }
@@ -13,6 +15,9 @@ class HandleActions
             $index = isset($_GET['index']) ? $_GET['index'] : null;
 
             switch ($action) {
+                case 'submit':
+                    $feedbackPageController->submitFeedback();
+                    break;
                 case 'edit':
                     $feedbackPageController->onEdit($index);
                     break;
@@ -20,10 +25,16 @@ class HandleActions
                     $feedbackPageController->onCancel();
                     break;
                 case 'apply':
-                    $feedbackPageController->onApply();
+                    if ($id) {
+                        $feedbackPageController->onApply($id);
+                    }
+                    // display modal error
                     break;
                 case 'delete':
-                    $feedbackPageController->onDelete($index);
+                    if (isset($_GET['id'])) {
+                        $feedbackPageController->onDelete($_GET['id']);
+                    }
+                    // display modal error
                     break;
             }
         }
