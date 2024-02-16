@@ -5,26 +5,6 @@ class RouterController
 {
     public function handleRequest($baseUrl, $feedbackPageController, $feedbackModel)
     {
-        $feedbacks = [
-            [
-                'name' => 'Jhon Doe',
-                'email' => 'asd@asd.test',
-                'body' => 'hello world',
-                'date' => '12.12.12'
-            ],
-            [
-                'name' => 'Mike Doe',
-                'email' => 'asd@asd.test',
-                'body' => 'hello world',
-                'date' => '12.12.12'
-            ],
-            [
-                'name' => 'Jane Doe',
-                'email' => 'asd@asd.test',
-                'body' => 'hello world',
-                'date' => '12.12.12'
-            ]
-        ];
 
         $fields = [
             [
