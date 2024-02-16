@@ -7,7 +7,7 @@ class FeedbackForm
     {
         echo '<h2>Feedback</h2>';
         echo '<p class="lead text-center">Leave feedback</p>';
-        echo '<form method="' . $methodName . '" action="' . htmlspecialchars($_SERVER[$serverName]) . '" class="mt-4 w-75">';
+        echo '<form method="' . $methodName . '" action="' . htmlspecialchars(parse_url($_SERVER['REQUEST_URI'])['path']) . '" class="mt-4 w-75">';
         foreach ($fields as $field) {
             (
                 new FormField(
