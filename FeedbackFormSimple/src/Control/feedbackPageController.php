@@ -4,12 +4,10 @@ class FeedbackPageController
 {
 
     private $feedbackModel;
-    private $model;
     private $view;
 
-    public function __construct($model, $view, $feedbackModel)
+    public function __construct($view, $feedbackModel)
     {
-        $this->model = $model;
         $this->view = $view;
         $this->feedbackModel = $feedbackModel;
     }
@@ -21,7 +19,6 @@ class FeedbackPageController
     }
 
     public function onEdit(int $value) {
-        $this->model->setEditModeFeedbackIndex($value);
         $_SESSION['editModeFeedbackIndex'] = $value;
         $this->refreshView();
     }

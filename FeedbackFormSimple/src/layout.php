@@ -6,7 +6,6 @@ require_once('View/feedbackPage.php');
 require_once('Control/routerController.php');
 require_once('Control/feedbackPageController.php');
 require_once('Model/FeedbackModel.php');
-require_once('Model/feedbackPageModel.php');
 require_once('utils/const/index.php');
 require_once('utils/action/index.php');
 
@@ -46,7 +45,7 @@ $fields = [
 ];
 
 $feedbackModel = new FeedbackModel();
-$feedbackPageController = new FeedbackPageController(new feedbackPageModel, new FeedbackPage(), $feedbackModel );
+$feedbackPageController = new FeedbackPageController(new FeedbackPage(), $feedbackModel );
 (new HeaderView())->renderHeader("Simple Feedback form", $buttons);
 (new RouterController())->handleRequest($baseUrl, $feedbackPageController, $feedbackModel);
 
