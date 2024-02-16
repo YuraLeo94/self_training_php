@@ -53,9 +53,9 @@ class RouterController
             ]
         ];
 
-        $request = $_SERVER['REQUEST_URI'];
-        echo '$request!! -> ' . $request;
-        $requestURL = explode($baseUrl, $request);
+        $url = $_SERVER['REQUEST_URI'];
+        $path =  parse_url($url)['path'];
+        $requestURL = explode($baseUrl, $path);
         $requestedPath = '';
         $prefix = '/';
 
@@ -66,22 +66,28 @@ class RouterController
             case '/':
             case $prefix . RoutingPaths::HOME:
                 if ($requestedPath !== '/') {
-                    header('Location: ' . $baseUrl . '/');
+                    header('Location: ' . explode($requestedPath, $path)[0] . '/');
                     exit();
                 }
                 (new FeedbackForm())->render($fields);
+                $this->cleanSession();
                 break;
 
             case $prefix . RoutingPaths::FEEDBACK:
                 $feedbackPageController->updateView();
-                // (new FeedbackPageController(new feedbackPageModel, new FeedbackPage(), $feedbackModel))->updateView();
-                // (new FeedbackPage())->render($feedbacks);
                 break;
 
 
             default:
+                $this->cleanSession();
                 http_response_code(404);
                 echo 'Error 404';
         }
+    }
+
+
+    public function cleanSession()
+    {
+        session_unset();
     }
 }
