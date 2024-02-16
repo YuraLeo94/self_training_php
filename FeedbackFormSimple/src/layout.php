@@ -6,8 +6,10 @@ require_once('View/feedbackPage.php');
 require_once('Control/routerController.php');
 require_once('Control/feedbackPageController.php');
 require_once('Model/FeedbackModel.php');
+require_once('Model/feedbackForm.config.php');
 require_once('utils/const/index.php');
 require_once('utils/action/index.php');
+require_once('config/database.php');
 
 include __DIR__ . '/../config/env.php';
 $baseUrl = getenv('BASE_URL');
@@ -17,35 +19,8 @@ $buttons = [
     ['name' => 'Feedback', 'href' => RoutingPaths::FEEDBACK]
 ];
 
-$fields = [
-    [
-        'wrapperClassName' => 'mb-3', 
-        'label' => 'Name', 
-        'name' => 'name', 
-        'type' => 'text', 
-        'placeholder' => 'Enter your name', 
-        'value' => ''
-    ],
-    [
-        'wrapperClassName' => 'mb-3', 
-        'label' => 'Email', 
-        'name' => 'email', 
-        'type' => 'email', 
-        'placeholder' => 'Enter your email', 
-        'value' => '',
-    ],
-    [
-        'wrapperClassName' => 'mb-3', 
-        'label' => 'Feedback', 
-        'name' => 'feedback', 
-        'type' => '', 
-        'placeholder' => 'Enter your feedback', 
-        'value' => '',
-    ]
-];
-
 $feedbackModel = new FeedbackModel();
-$feedbackPageController = new FeedbackPageController(new FeedbackPage(), $feedbackModel );
+$feedbackPageController = new FeedbackPageController(new FeedbackPage(), $feedbackModel, new FeedbackForm() );
 (new HeaderView())->renderHeader("Simple Feedback form", $buttons);
 (new RouterController())->handleRequest($baseUrl, $feedbackPageController, $feedbackModel);
 

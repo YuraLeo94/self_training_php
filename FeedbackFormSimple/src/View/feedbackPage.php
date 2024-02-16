@@ -27,6 +27,9 @@ class FeedbackPage
     public function render($feedbacks, $editModeFeedbackIndex)
     {
         echo "<h1>Feedbacks</h1>";
+        if (empty($feedbacks)) {
+            echo " <p class='lead mt-3'>There is no feedback</p>";
+        }
         (new FeedbackItemView())->render($feedbacks, $editModeFeedbackIndex);
     }
 }

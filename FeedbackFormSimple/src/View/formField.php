@@ -35,7 +35,7 @@ class FormField
         echo !$isTextArea ? "<input type=\"{$this->type}\" class=\"form-control " .
         (!$this->error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" :
             "<textarea  type=\"{$this->type}\" class=\"form-control " .
-            (!$this->error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\"></textarea>";
+            (!$this->error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">".$this->value."</textarea>";
             
         echo "<div class='invalid-feedback'>".$this->error."</div>";
         echo '</div>';
