@@ -8,7 +8,6 @@ class FeedbackModel
         global $db;
         $result = mysqli_query($db, 'SELECT * FROM feedbacks');
         $feedback = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        print_r($feedback);
         return $feedback;
     }
 
