@@ -28,7 +28,7 @@ class FeedbackItemView
                                     'Enter your feedback',
                                     $feedback['body']
                                 )
-                            )->render(true);
+                            )->render(true, (new FormValidation())->validateIsFilled('feedback'));
                             $this->renderEditModeButtons($feedback['id']);
                         }
                     echo '</div>';
