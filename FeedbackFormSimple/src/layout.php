@@ -1,12 +1,20 @@
 <?php
+require_once('utils/formValidation.php');
+require_once('View/form.php');
 require_once('View/headerView.php');
 require_once('View/formField.php');
 require_once('View/feedbackForm.php');
 require_once('View/feedbackPage.php');
+require_once('View/signInForm.php');
+require_once('View/createAccountForm.php');
 require_once('Control/routerController.php');
 require_once('Control/feedbackPageController.php');
+require_once('Control/userController.php');
 require_once('Model/FeedbackModel.php');
-require_once('Model/feedbackForm.config.php');
+require_once('Model/userModel.php');
+require_once('Model/Config/feedbackForm.config.php');
+require_once('Model/Config/signInForm.config.php');
+require_once('Model/Config/createAccountForm.config.php');
 require_once('utils/const/index.php');
 require_once('utils/action/index.php');
 require_once('config/database.php');
@@ -19,10 +27,10 @@ $buttons = [
     ['name' => 'Feedback', 'href' => RoutingPaths::FEEDBACK]
 ];
 
-$feedbackModel = new FeedbackModel();
-$feedbackPageController = new FeedbackPageController(new FeedbackPage(), $feedbackModel, new FeedbackForm() );
-(new HeaderView())->renderHeader("Simple Feedback form", $buttons);
-(new RouterController())->handleRequest($baseUrl, $feedbackPageController, $feedbackModel);
+$feedbackPageController = new FeedbackPageController(new FeedbackPage(), new FeedbackModel(), new FeedbackForm());
+$userController = new UserController(new UserModel(), new CreateAccountForm(), new SignInForm());
 
-(new HandleActions())->handleActions($feedbackPageController);
-?>
+(new HeaderView())->renderHeader("Simple Feedback form", $buttons);
+(new RouterController())->handleRequest($baseUrl, $feedbackPageController, $userController);
+(new HandleActions())->handleActions($feedbackPageController, $userController);
+
