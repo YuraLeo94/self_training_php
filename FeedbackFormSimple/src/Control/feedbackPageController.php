@@ -55,7 +55,7 @@ class FeedbackPageController
     public function showFeedbackForm()
     {
         $fieldsData = unserialize(FEEDBACK_FORM_FIELDS);
-        $this->feedbackFormView->render($fieldsData);
+        $this->feedbackFormView->renderFeedbackForm($fieldsData);
     }
 
     public function submitFeedback()
