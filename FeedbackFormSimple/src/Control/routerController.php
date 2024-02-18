@@ -3,7 +3,7 @@
 
 class RouterController
 {
-    public function handleRequest($baseUrl, $feedbackPageController, $feedbackModel)
+    public function handleRequest($baseUrl, $feedbackPageController, $userController)
     {
 
         $url = $_SERVER['REQUEST_URI'];
@@ -29,8 +29,12 @@ class RouterController
             case $prefix . RoutingPaths::FEEDBACK:
                 $feedbackPageController->updateView();
                 break;
-
-
+            case $prefix . RoutingPaths::SIGN_IN:
+                $userController->showSignInFormView();
+                break;
+            case $prefix . RoutingPaths::CREATE_ACCOUNT:
+                $userController->showCreateAccountFormView();
+                break;
             default:
                 $this->cleanSession();
                 http_response_code(404);
@@ -41,6 +45,7 @@ class RouterController
 
     public function cleanSession()
     {
-        session_unset();
+        // change to clean by names[] - <string>[]
+        // session_unset();
     }
 }
