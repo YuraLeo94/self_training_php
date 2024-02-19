@@ -4,6 +4,8 @@ class HeaderView
 {
     public function renderHeader($title, $buttons)
     {
+        $isAuthenticated = isset($_SESSION[SessionEntryNames::UID]) ? !!$_SESSION[SessionEntryNames::UID] : false;
+        
         echo '<header>';
         echo '<nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">';
         echo '<div class="container">';
@@ -16,6 +18,18 @@ class HeaderView
             $href = $button['href'];
             echo '<li class="nav-item">';
             echo '<a class="nav-link" href="' . $href . '">' . $name . '</a>';
+            echo '</li>';
+        }
+        if ($isAuthenticated) {
+            echo '<li class="nav-item">';
+            echo "<form method='POST' action=" . htmlspecialchars(parse_url($_SERVER['REQUEST_URI'])['path']) . ">";
+            echo "<input type='hidden' name='action' value='logout'>";
+            echo "<button class='btn nav-link' type='submit'> Log out </button>";
+            echo "</form>";
+            echo '</li>';
+        } else {
+            echo '<li class="nav-item">';
+            echo '<a class="nav-link" href="' . RoutingPaths::SIGN_IN . '">Sign in</a>';
             echo '</li>';
         }
 

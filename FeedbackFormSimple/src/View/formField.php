@@ -6,12 +6,10 @@ class FormField
     private $label = '';
     private $name = '';
     private $type = '';
-    private $error = '';
-    private $errorMessage = '';
     private $placeholder = '';
     private $value = '';
 
-    public function __construct($wrapperClassName, $label, $name, $type, $placeholder = '', $value = '', $errorMessage = 'Field is reqired')
+    public function __construct($wrapperClassName, $label, $name, $type, $placeholder = '', $value = '')
     {
         $this->wrapperClassName = $wrapperClassName;
         $this->label = $label;
@@ -19,35 +17,18 @@ class FormField
         $this->type = $type;
         $this->placeholder = $placeholder;
         $this->value = $value;
-        $this->errorMessage = $errorMessage;
     }
 
-    function setError($error)
+    public function render($isTextArea = false, $error)
     {
-        $this->error = $error;
-    }
-
-    public function render($isTextArea = false)
-    {
-        $this->errorHandler($this->name);
         echo "<div class='{$this->wrapperClassName}'>";
         echo "<label for='{$this->name}' class=\"form-label\">{$this->label}</label>";
         echo !$isTextArea ? "<input type=\"{$this->type}\" class=\"form-control " .
-        (!$this->error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" :
+            (!$error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" :
             "<textarea  type=\"{$this->type}\" class=\"form-control " .
-            (!$this->error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">".$this->value."</textarea>";
-            
-        echo "<div class='invalid-feedback'>".$this->error."</div>";
-        echo '</div>';
-    }
+            (!$error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" . $this->value . "</textarea>";
 
-    private function errorHandler($name) {
-        $error = '';
-        if (isset($_POST['submit'])) {
-            if (empty($_POST[$name])) {
-                $error = $this->errorMessage;
-            }
-        }
-        $this->error = $error;
+        echo "<div class='invalid-feedback'>" . $error . "</div>";
+        echo '</div>';
     }
 }

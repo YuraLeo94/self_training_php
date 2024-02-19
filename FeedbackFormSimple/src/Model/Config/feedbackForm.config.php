@@ -1,4 +1,7 @@
 <?php
+$validateName = ['FormValidation', 'validateIsFilled'];
+$validateEmail =  ['FormValidation', 'validateEmail'];
+$validateFeedback =  ['FormValidation', 'validateIsFilled'];
 
 $fields = [
     [
@@ -7,7 +10,8 @@ $fields = [
         'name' => 'name',
         'type' => 'text',
         'placeholder' => 'Enter your name',
-        'value' => ''
+        'value' => '',
+        'errorHandler' => $validateName
     ],
     [
         'wrapperClassName' => 'mb-3',
@@ -16,6 +20,7 @@ $fields = [
         'type' => 'email',
         'placeholder' => 'Enter your email',
         'value' => '',
+        'errorHandler' => $validateEmail
     ],
     [
         'wrapperClassName' => 'mb-3',
@@ -24,6 +29,7 @@ $fields = [
         'type' => '',
         'placeholder' => 'Enter your feedback',
         'value' => '',
+        'errorHandler' => $validateFeedback
     ]
 ];
 

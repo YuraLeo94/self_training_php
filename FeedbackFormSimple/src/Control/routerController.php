@@ -3,7 +3,7 @@
 
 class RouterController
 {
-    public function handleRequest($baseUrl, $feedbackPageController, $feedbackModel)
+    public function handleRequest($baseUrl, $feedbackPageController, $userController)
     {
 
         $url = $_SERVER['REQUEST_URI'];
@@ -23,24 +23,30 @@ class RouterController
                     exit();
                 }
                 $feedbackPageController->showFeedbackForm();
-                $this->cleanSession();
+                SessionEntryNames::clean([
+                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX
+                ]);
                 break;
 
             case $prefix . RoutingPaths::FEEDBACK:
                 $feedbackPageController->updateView();
                 break;
-
-
+            case $prefix . RoutingPaths::SIGN_IN:
+                SessionEntryNames::clean([
+                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX
+                ]);
+                $userController->showSignInFormView();
+                break;
+            case $prefix . RoutingPaths::CREATE_ACCOUNT:
+                SessionEntryNames::clean([
+                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX
+                ]);
+                $userController->showCreateAccountFormView();
+                break;
             default:
-                $this->cleanSession();
+                session_unset();
                 http_response_code(404);
                 echo 'Error 404';
         }
-    }
-
-
-    public function cleanSession()
-    {
-        session_unset();
     }
 }
