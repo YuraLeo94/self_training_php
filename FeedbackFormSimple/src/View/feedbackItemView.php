@@ -5,6 +5,11 @@ class FeedbackItemView
 
     public function render($feedbacks, $editModeFeedbackIndex)
     {
+        // $uid = null;
+        // if (isset($_SESSION[SessionEntryNames::UID])) {
+        //     $uid = $_SESSION[SessionEntryNames::UID];
+        // }
+
         foreach ($feedbacks as $index => $feedback) {
             echo "<form method='POST' action=".htmlspecialchars(parse_url($_SERVER['REQUEST_URI'])['path']).">";
                 echo '<div class="card my-3 w-75">';
@@ -14,6 +19,7 @@ class FeedbackItemView
                             echo '<div>' . '<span class="fw-bold">Date:</span> ' . date_format(date_create($feedback['date']), 'g:ia \o\n l jS F Y') . '</div>';
                         echo '</div>';
                          
+                    //   if (!!$feedback['uid'] && $uid === $feedback['uid']) {
                         if ($index !== $editModeFeedbackIndex ) {
                             echo $feedback['body'];
                             $this->renderBasicButtonsPanel($index, $editModeFeedbackIndex !== null, $feedback['id']);
@@ -31,6 +37,10 @@ class FeedbackItemView
                             )->render(true, (new FormValidation())->validateIsFilled('feedback'));
                             $this->renderEditModeButtons($feedback['id']);
                         }
+                    //   }
+                    //   else {
+                    //     echo $feedback['body'];
+                    //   }
                     echo '</div>';
                 echo '</div>';
             echo '</form';

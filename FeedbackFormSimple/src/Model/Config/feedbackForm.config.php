@@ -33,4 +33,17 @@ $fields = [
     ]
 ];
 
+$fieldsForAuthorizeUser = [
+    [
+        'wrapperClassName' => 'mb-3',
+        'label' => 'Feedback',
+        'name' => 'feedback',
+        'type' => '',
+        'placeholder' => 'Enter your feedback',
+        'value' => '',
+        'errorHandler' => $validateFeedback
+    ]
+];
+
 define('FEEDBACK_FORM_FIELDS', serialize($fields));
+define('FEEDBACK_FORM_FIELDS_AUTHORIZED', serialize($fieldsForAuthorizeUser));

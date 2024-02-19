@@ -23,9 +23,9 @@ class FeedbackModel
         $db->query($sql);
     }
 
-    public function add($name, $email, $body) {
+    public function add($name, $email, $body, $uid) {
         global $db;
-        $sql = "INSERT INTO feedbacks (name, email, body) VALUES ('$name', '$email', '$body')";
+        $sql = "INSERT INTO feedbacks (name, email, body, uid) VALUES ('$name', '$email', '$body', '$uid')";
         $db->query($sql);
         if ($db->affected_rows > 0) {
             // todo display modal ok
