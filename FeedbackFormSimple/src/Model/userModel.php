@@ -31,37 +31,37 @@ class UserModel
 
         $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = $db->query($sql);
-        
         $this->cleanLoginSessionData();
         if ($result && $result->num_rows > 0) {
             $user = $result->fetch_assoc();
 
             if (password_verify($password, $user['password'])) {
-                $_SESSION['user_name'] = $user['name'];
-                $_SESSION['user_email'] = $user['email'];
-                $_SESSION['uid'] = $user['uid'];
+                $_SESSION[SessionEntryNames::USER_NAME] = $user['name'];
+                $_SESSION[SessionEntryNames::USER_EMAIL] = $user['email'];
+                $_SESSION[SessionEntryNames::UID] = $user['uid'];
                 return true;
-            } else {
-                $_SESSION['password_invalid'] = "Incorrect password";
-                return false;
             }
-        } else {
-            $_SESSION['email_invalid'] = "User with the provided email not found";
+            $_SESSION[SessionEntryNames::PASSWORD_INVALID] = "Incorrect password";
             return false;
         }
+        $_SESSION[SessionEntryNames::EMAIL_INVALID] = "User with the provided email not found";
+        return false;
     }
 
-    public function logout() {
+    public function logout()
+    {
         $this->cleanLoginSessionData();
     }
 
     public function cleanLoginSessionData()
     {
-        $_SESSION['password_invalid'] = null;
-        $_SESSION['email_invalid'] = null;
-        $_SESSION['user_name'] = null;
-        $_SESSION['user_email'] = null;
-        $_SESSION['uid'] = null;
+        SessionEntryNames::clean([
+            SessionEntryNames::PASSWORD_INVALID,
+            SessionEntryNames::EMAIL_INVALID,
+            SessionEntryNames::USER_NAME,
+            SessionEntryNames::USER_EMAIL,
+            SessionEntryNames::UID
+        ]);
     }
 
     public function createAccount($name, $email, $password)
@@ -73,11 +73,13 @@ class UserModel
 
         $existingUserCheck = "SELECT * FROM users WHERE email = '$email'";
         $existingUserResult = $db->query($existingUserCheck);
-
+        SessionEntryNames::clean([
+            SessionEntryNames::EMAIL_EXISTS,
+            SessionEntryNames::CREATION_FAILED
+        ]);
         if ($existingUserResult && $existingUserResult->num_rows > 0) {
-            // set to ssesion and display error
-            // return false;
-            return 'email_exists';
+            $_SESSION[SessionEntryNames::EMAIL_EXISTS] = "User with the provided email already exists";
+            return false;
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -88,14 +90,9 @@ class UserModel
         if ($db->affected_rows > 0) {
             // Account creation successful
             // todo display modal ok
-            // redirect to the sign in form
-            // return true;
-            return '';
-        } else {
-            // Account creation failed
-            // todo display modal error
-            // return false;
-            return 'creation_failed';
+            return true;
         }
+        $_SESSION[SessionEntryNames::CREATION_FAILED] = "Account creation failed";
+        return false;
     }
 }

@@ -30,20 +30,15 @@ class UserController
     {
         $email = !empty($_POST['email']) ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS) : '';
         $password =  !empty($_POST['password']) ? filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS) : '';
-        $res = $this->model->login($email, $password);
-        
-        if ($res) {
-            $path = parse_url($_SERVER['REQUEST_URI'])['path'];
-            $tmpPath = explode('signin', $path);
-            print_r($tmpPath);
-            header("Location: " . $tmpPath[0] . RoutingPaths::HOME);
-            exit();
-            echo ' Home !';
+        if (!!$email && !!$password) {
+            $res = $this->model->login($email, $password);
+            PageManipulation::redirectToPage(RoutingPaths::SIGN_IN, RoutingPaths::HOME, $res);
         }
     }
 
     public function onLogout() {
         $this->model->logout();
+        PageManipulation::refreshPage();
     }
 
     public function onCreatAccount()
@@ -51,20 +46,21 @@ class UserController
         $name = !empty($_POST['name']) ? filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS) : '';
         $email = !empty($_POST['email']) ? filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS) : '';
         $password =  !empty($_POST['password']) ? filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS) : '';
-        $res = $this->model->createAccount($name, $email, $password);
-        // move it to model
-        if ($res === 'email_exists') $_SESSION['email_exists'] = "User with the provided email already exists";
-        if ($res === 'creation_failed') $_SESSION['creation_failed'] = "Account creation failed";
+        $confirmPass =  !empty($_POST['confirm_password']) ? filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_SPECIAL_CHARS) : '';
+        if (!!$name && !!$email && !!$password && !!$confirmPass) {
+            $res = $this->model->createAccount($name, $email, $password);
+            PageManipulation::redirectToPage(RoutingPaths::CREATE_ACCOUNT, RoutingPaths::SIGN_IN, $res);
+        }
     }
 
     public function loginErrorHandler()
     {
         $error = null;
-        if (isset($_SESSION['password_invalid'])) {
-            $error = $_SESSION['password_invalid'];
+        if (isset($_SESSION[SessionEntryNames::PASSWORD_INVALID])) {
+            $error = $_SESSION[SessionEntryNames::PASSWORD_INVALID];
         }
-        if (isset($_SESSION['email_invalid'])) {
-            $error = $_SESSION['email_invalid'];
+        if (isset($_SESSION[SessionEntryNames::EMAIL_INVALID])) {
+            $error = $_SESSION[SessionEntryNames::EMAIL_INVALID];
         }
         return $error;
     }
@@ -72,11 +68,11 @@ class UserController
     public function creatAccErrorHandler()
     {
         $error = null;
-        if (isset($_SESSION['email_exists'])) {
-            $error = $_SESSION['email_exists'];
+        if (isset($_SESSION[SessionEntryNames::EMAIL_EXISTS])) {
+            $error = $_SESSION[SessionEntryNames::EMAIL_EXISTS];
         }
-        if (isset($_SESSION['creation_failed'])) {
-            $error = $_SESSION['creation_failed'];
+        if (isset($_SESSION[SessionEntryNames::CREATION_FAILED])) {
+            $error = $_SESSION[SessionEntryNames::CREATION_FAILED];
         }
         return $error;
     }

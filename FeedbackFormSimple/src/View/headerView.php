@@ -4,7 +4,7 @@ class HeaderView
 {
     public function renderHeader($title, $buttons)
     {
-        $isAuthenticated = isset($_SESSION['uid']) ? !!$_SESSION['uid'] : false;
+        $isAuthenticated = isset($_SESSION[SessionEntryNames::UID]) ? !!$_SESSION[SessionEntryNames::UID] : false;
         
         echo '<header>';
         echo '<nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">';

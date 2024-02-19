@@ -1,5 +1,7 @@
 <?php
 require_once('utils/formValidation.php');
+require_once('utils/SessionEntryNames.php');
+require_once('utils/pageManipulation.php');
 require_once('View/form.php');
 require_once('View/headerView.php');
 require_once('View/formField.php');

@@ -22,13 +22,13 @@ class FeedbackPageController
 
     public function onEdit(int $value)
     {
-        $_SESSION['editModeFeedbackIndex'] = $value;
+        $_SESSION[SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX] = $value;
         $this->refreshView();
     }
 
     public function onCancel()
     {
-        $_SESSION['editModeFeedbackIndex'] = null;
+        $_SESSION[SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX] = null;
         $this->refreshView();
     }
 
@@ -40,7 +40,7 @@ class FeedbackPageController
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         ) : '';
         if (!!$body) {
-            $_SESSION['editModeFeedbackIndex'] = null;
+            $_SESSION[SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX] = null;
             $this->feedbackModel->update($id, $body);
             $this->refreshView();
         }
@@ -84,8 +84,8 @@ class FeedbackPageController
     public function updateView($feedbacks = null)
     {
         $editModeFeedbackIndex = null;
-        if (isset($_SESSION['editModeFeedbackIndex'])) {
-            $editModeFeedbackIndex = $_SESSION['editModeFeedbackIndex'];
+        if (isset($_SESSION[SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX])) {
+            $editModeFeedbackIndex = $_SESSION[SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX];
         }
 
         if ($feedbacks === null) {
