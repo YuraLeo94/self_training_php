@@ -2,6 +2,24 @@
 
 class FeedbackModel
 {
+    private $feedbackFormFields;
+    private $feedbackFormFieldsForAuthorized;
+
+    public function __construct()
+    {
+        $this->feedbackFormFields = unserialize(FEEDBACK_FORM_FIELDS);
+        $this->feedbackFormFieldsForAuthorized = unserialize(FEEDBACK_FORM_FIELDS_AUTHORIZED);
+    }
+
+    public function getFeedbackFormFields()
+    {
+        return $this->feedbackFormFields;
+    }
+
+    public function getFeedbackFormFieldsForAuthorized()
+    {
+        return $this->feedbackFormFieldsForAuthorized;
+    }
 
     public function getFeedbacks()
     {
