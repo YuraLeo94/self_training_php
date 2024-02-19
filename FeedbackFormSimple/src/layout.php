@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('utils/formValidation.php');
 require_once('utils/SessionEntryNames.php');
 require_once('utils/pageManipulation.php');

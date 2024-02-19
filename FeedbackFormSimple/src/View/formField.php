@@ -23,12 +23,15 @@ class FormField
     {
         echo "<div class='{$this->wrapperClassName}'>";
         echo "<label for='{$this->name}' class=\"form-label\">{$this->label}</label>";
-        echo !$isTextArea ? "<input type=\"{$this->type}\" class=\"form-control " .
-            (!$error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" :
-            "<textarea  type=\"{$this->type}\" class=\"form-control " .
-            (!$error ?: 'is-invalid') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">" . $this->value . "</textarea>";
+        
+        if (!$isTextArea) {
+            echo "<input type=\"{$this->type}\" class=\"form-control" . ($error ? ' is-invalid' : '') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\" value=\"{$this->value}\">";
+        } else {
+            echo "<textarea type=\"{$this->type}\" class=\"form-control" . ($error ? ' is-invalid' : '') . "\" name=\"{$this->name}\" placeholder=\"{$this->placeholder}\">{$this->value}</textarea>";
+        }
 
         echo "<div class='invalid-feedback'>" . $error . "</div>";
         echo '</div>';
     }
 }
+

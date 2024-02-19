@@ -29,7 +29,7 @@ class RouterController
                 break;
 
             case $prefix . RoutingPaths::FEEDBACK:
-                $feedbackPageController->updateView();
+                $feedbackPageController->showFeedbacks();
                 break;
             case $prefix . RoutingPaths::SIGN_IN:
                 SessionEntryNames::clean([
