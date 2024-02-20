@@ -11,7 +11,7 @@ class FeedbackItemView
         }
 
         foreach ($feedbacks as $index => $feedback) {
-            echo "<form method='POST' action='" . htmlspecialchars(parse_url($_SERVER['REQUEST_URI'])['path']) . "'>";
+            echo "<form class='w-100 d-flex justify-content-center' method='POST' action='" . htmlspecialchars(parse_url($_SERVER['REQUEST_URI'])['path']) . "'>";
             echo '<div class="card my-3 w-75">';
             echo '<div class="card-body text-body">';
             echo '<div class="my-2 d-flex justify-content-between text-dark mt-2">';

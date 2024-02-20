@@ -1,35 +1,16 @@
 <?php
 require_once('feedbackItemView.php');
 
-$feedbacks = [
-    [
-        'name' => 'Jhon Doe',
-        'email' => 'asd@asd.test',
-        'body' => 'hello world',
-        'date' => '12.12.12'
-    ],
-    [
-        'name' => 'Mike Doe',
-        'email' => 'asd@asd.test',
-        'body' => 'hello world',
-        'date' => '12.12.12'
-    ],
-    [
-        'name' => 'Jane Doe',
-        'email' => 'asd@asd.test',
-        'body' => 'hello world',
-        'date' => '12.12.12'
-    ]
-];
-
 class FeedbackPage
 {
     public function render($feedbacks, $editModeFeedbackIndex)
     {
+        echo "<div class='container d-flex flex-column align-items-center'>";
         echo "<h1>Feedbacks</h1>";
         if (empty($feedbacks)) {
             echo " <p class='lead mt-3'>There is no feedback</p>";
         }
         (new FeedbackItemView())->render($feedbacks, $editModeFeedbackIndex);
+        echo "</div>";
     }
 }
