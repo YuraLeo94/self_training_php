@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+$sessionTimeout = 30 * 60;
+session_set_cookie_params($sessionTimeout);
 require_once('utils/formValidation.php');
 require_once('utils/SessionEntryNames.php');
 require_once('utils/pageManipulation.php');
