@@ -10,6 +10,8 @@ class SessionEntryNames
     const EMAIL_EXISTS = 'email_exists';
     const CREATION_FAILED = 'creation_failed';
     const EDIT_MODE_FEEDBACK_INDEX = 'edit_mode_feedback_index';
+    const SHOW_MODAL = 'show_modal';
+    const MODAL_MESSAGE = 'modal_message';
     
     public static function clean($names) {
         foreach($names as $name) {

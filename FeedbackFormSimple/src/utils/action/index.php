@@ -14,6 +14,11 @@ class HandleActions
             $index = isset($_GET['index']) ? $_GET['index'] : null;
 
             switch ($action) {
+                case 'close_modal':
+                    $_SESSION[SessionEntryNames::SHOW_MODAL] = false;
+                    $_SESSION[SessionEntryNames::MODAL_MESSAGE] = null;
+                    PageManipulation::refreshPage();
+                    break;
                 case 'submit':
                     $feedbackPageController->submitFeedback();
                     break;
@@ -27,8 +32,11 @@ class HandleActions
                     $id = filter_input(INPUT_POST, 'apply_id', FILTER_SANITIZE_SPECIAL_CHARS);
                     if ($id) {
                         $feedbackPageController->onApply($id);
+                    } else {
+                        $_SESSION[SessionEntryNames::MODAL_MESSAGE] = 'Something went wrong.';
+                        $_SESSION[SessionEntryNames::SHOW_MODAL] = true;
+                        PageManipulation::refreshPage();
                     }
-                    // display modal error
                     break;
                 case 'sign_in':
                     $userController->onLogin();
@@ -42,8 +50,11 @@ class HandleActions
                 case 'delete':
                     if (isset($_GET['id'])) {
                         $feedbackPageController->onDelete($_GET['id']);
+                    } else {
+                        $_SESSION[SessionEntryNames::MODAL_MESSAGE] = 'Something went wrong.';
+                        $_SESSION[SessionEntryNames::SHOW_MODAL] = true;
+                        PageManipulation::refreshPage();
                     }
-                    // display modal error
                     break;
             }
         }

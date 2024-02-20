@@ -88,8 +88,6 @@ class UserModel
         $db->query($sql);
 
         if ($db->affected_rows > 0) {
-            // Account creation successful
-            // todo display modal ok
             return true;
         }
         $_SESSION[SessionEntryNames::CREATION_FAILED] = "Account creation failed";
