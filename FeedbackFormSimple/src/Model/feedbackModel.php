@@ -43,12 +43,22 @@ class FeedbackModel
 
     public function add($name, $email, $body, $uid) {
         global $db;
-        $sql = "INSERT INTO feedbacks (name, email, body, uid) VALUES ('$name', '$email', '$body', '$uid')";
+        $sql = '';
+        if ($uid) {
+            $sql = "INSERT INTO feedbacks (name, email, body, uid) VALUES ('$name', '$email', '$body', '$uid')";
+        }
+        else {
+            $sql = "INSERT INTO feedbacks (name, email, body) VALUES ('$name', '$email', '$body')";
+        }
         $db->query($sql);
         if ($db->affected_rows > 0) {
-            // todo display modal ok
+            $_SESSION[SessionEntryNames::MODAL_MESSAGE] = 'Feedback added successfully';
+            $_SESSION[SessionEntryNames::SHOW_MODAL] = true;
+            PageManipulation::refreshPage();
         } else {
-            // todo display modal error
+            $_SESSION[SessionEntryNames::MODAL_MESSAGE] = 'Error - Feedback not added.';
+            $_SESSION[SessionEntryNames::SHOW_MODAL] = true;
+            PageManipulation::refreshPage();
         }
     }
 }
