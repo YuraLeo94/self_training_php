@@ -12,7 +12,7 @@ class ModalView
                         <div class='modal-body d-flex flex-column align-items-center'>
                             <p>{$message}</p>
                             <div>
-                                <a class='btn btn-primary' href='?action=close_modal'>Ok</a>
+                                <a class='btn btn-dark' href='?action=close_modal'>Ok</a>
                             </div>
                         </div>
                     </div>

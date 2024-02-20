@@ -33,13 +33,17 @@ class RouterController
                 break;
             case $prefix . RoutingPaths::SIGN_IN:
                 SessionEntryNames::clean([
-                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX
+                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX,
+                    SessionEntryNames::PASSWORD_INVALID,
+                    SessionEntryNames::EMAIL_INVALID
                 ]);
                 $userController->showSignInFormView();
                 break;
             case $prefix . RoutingPaths::CREATE_ACCOUNT:
                 SessionEntryNames::clean([
-                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX
+                    SessionEntryNames::EDIT_MODE_FEEDBACK_INDEX,
+                    SessionEntryNames::CREATION_FAILED,
+                    SessionEntryNames::EMAIL_EXISTS
                 ]);
                 $userController->showCreateAccountFormView();
                 break;
