@@ -2,7 +2,7 @@
 
 class Form
 {
-    public function render($fields, $name = 'submit', $buttonName, $actionValue) {
+    public function render($fields, $name, $buttonName, $actionValue) {
        echo "<div class='container d-flex flex-column align-items-center'>"; 
        echo '<form method="POST" action="' . htmlspecialchars(parse_url($_SERVER['REQUEST_URI'])['path']) . '" class="mt-4 w-75">';
        foreach ($fields as $field) {

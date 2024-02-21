@@ -19,7 +19,7 @@ class FormField
         $this->value = $value;
     }
 
-    public function render($isTextArea = false, $error)
+    public function render($isTextArea, $error)
     {
         echo "<div class='{$this->wrapperClassName}'>";
         echo "<label for='{$this->name}' class=\"form-label\">{$this->label}</label>";
