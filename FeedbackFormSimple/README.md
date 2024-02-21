@@ -3,7 +3,7 @@ This project/task does not address any business problems. The main goal of this 
 
 ## TODO
 TODO was described in another file. Here is a link to it ->
-https://github.com/YuraLeo94/self_training_php/blob/main/FeedbackFormSimple/todo.txt
+https://github.com/YuraLeo94/self_training_php/blob/main/FeedbackFormSimple/todo.md
 
 
 ## Steps to Run a Project Locally
