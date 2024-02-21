@@ -12,7 +12,8 @@ The process is described below, assuming the user knows what **XAMPP** is and ho
 To Run the project use XAMPP and run:
 1. Apache
 2. MySQL
-   Note: XAMPP can be downloaded using the following link -> https://www.apachefriends.org/download.html
+
+Note: XAMPP can be downloaded using the following link -> https://www.apachefriends.org/download.html
 
 Create DB with the name `feedback_form_simple`.
 This DB should have two tables:
