@@ -1,9 +1,9 @@
-Implement Desktop View Application.
+# Implement Desktop View Application.
 
 Develop an SAP application with a navigation menu and a body where forms or feedback
 information should be displayed.
 
-Functional Requirements:
+## Functional Requirements:
 
 1. Create User Account:
    The application should provide an opportunity to create a new user account by
@@ -30,7 +30,7 @@ Functional Requirements:
 7. After clicking on the "Create Account" link on the sign-in page, there should be a
    redirection to the create account form.
 
-Non-functional Requirements:
+## Non-functional Requirements:
 
 1. All form fields in the application should undergo validation. Name and feedback fields
    should be checked for completion, email should be checked for correct format, and the password
